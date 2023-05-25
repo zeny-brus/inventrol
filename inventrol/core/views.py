@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import Category
 
-
+#aplicacao de login
 @login_required(login_url='login')
 def home(request):
     return render(request,'index.html')
@@ -26,9 +29,31 @@ def logout_view(request):
     logout(request)
     return redirect('login')
 
+#aplicacao de categoria
+class CreateCategoryView(CreateView):
+    model = Category
+    template_name = 'categoria/criar_categoria.html'
+    fields = ['name']
+    success_url = reverse_lazy('home')
 
+class UpdateCategoryView(UpdateView):
+    model = Category
+    template_name = 'categoria/criar_categoria.html'
+    fields = ['name']
+    success_url = reverse_lazy('home')
+    pk_url_kwarg = 'categoria_id'
 
-    
+class DeleteCategoryView(DeleteView):
+    model = Category
+    template_name = 'categoria/criar_categoria.html'
+    fields = ['name']
+    success_url = reverse_lazy('home')
+    pk_url_kwarg = 'categoria_id'
+
+class ListCategoryView(ListView):
+    model = Category
+    template_name = 'categoria/lista_categoria.html'
+    context_object_name = 'categorys'
 
 
 
