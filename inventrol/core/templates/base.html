@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Inventrol{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class='navbar navbar-dark sticky-top bg-primary flex-md-nowrap p-0'>
+      <a class='navbar-brand col-sm-2 col-md-2 mr-0'>Inventrol</a>
+      <ul class='navbar-nav px-3'>
+        <li class='nav-item text-nowrap'>
+          <a class='nav-link' href='#'>Logout</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class='container-fluid'>
+      <div class='row'>
+        <nav class='col-md-2 d-none d-md-block bg-light sidebar'>
+          <div class='sidebar-sticky'>
+            <ul class='nav flex-column'>
+              <li class='nav-tem'>
+                <a class='nav-link' href='#'>
+                  Categorias
+                </a>
+              </li>
+              <li class='nav-tem'>
+                <a class='nav-link' href='#'>
+                  Produtos
+                </a>
+              </li>
+              <li class='nav-tem'>
+                <a class='nav-link' href='#'>
+                  Movimentações
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <main class='col-md-9 ml-sm-auto col-lg-10 pt-3 px-4' role='main'>
+          {% block content %}
+          <!-- Conteúdo específico de cada página será adicionado aqui -->
+          {% endblock %}
+        </main>
+      </div>        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
