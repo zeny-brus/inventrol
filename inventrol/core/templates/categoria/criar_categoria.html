@@ -6,6 +6,8 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Salvar</button>
-    <button type="submit"><a href='{% url "delete_category" object.pk %}'>Excluir</a></button>
+    {% if categoria.id %}
+      <button type="submit"><a href='{% url "delete_category" categoria.id %}'>Excluir</a></button>
+    {% endif %}
   </form>  
 {% endblock  %}
