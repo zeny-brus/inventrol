@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from inventrol.core.views import home, login_view
+from inventrol.core.views import home, login_view, logout_view
 
 urlpatterns = [    
     #django admin
@@ -24,4 +24,5 @@ urlpatterns = [
     #urls aplicacao
     path('',home, name='home'),
     path('login/',login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
 ]
