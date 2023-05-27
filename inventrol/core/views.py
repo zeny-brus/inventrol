@@ -34,19 +34,20 @@ class CreateCategoryView(CreateView):
     model = Category
     template_name = 'categoria/criar_categoria.html'
     fields = ['name']
-    success_url = reverse_lazy('list_category')
+    success_url = reverse_lazy('home')
 
 class UpdateCategoryView(UpdateView):
     model = Category
     template_name = 'categoria/criar_categoria.html'
     fields = ['name']
-    success_url = reverse_lazy('list_category')
+    success_url = reverse_lazy('home')
     pk_url_kwarg = 'categoria_id'
 
 class DeleteCategoryView(DeleteView):
     model = Category
-    template_name = 'categoria/criar_categoria.html'    
-    success_url = reverse_lazy('list_category')
+    template_name = 'categoria/criar_categoria.html'
+    fields = ['name']
+    success_url = reverse_lazy('home')
     pk_url_kwarg = 'categoria_id'
 
 class ListCategoryView(ListView):
