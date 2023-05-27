@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Listar Produtos</h1>
+  <button type='submit'><a href='{% url "create_product" %}'>Novo produto</a></button>
+</br>
+  <ul>
+    {% for product in products %}
+      <li>
+        {{ product.name }}
+        <button type="submit"><a href='{% url "update_product" product.pk %}'>Editar</a></button>
+        <form method="post" action='{% url "delete_product" product.pk %}'>
+          {% csrf_token %}
+          <button type="submit">Excluir</button>        
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+
+
+

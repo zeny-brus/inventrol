@@ -2,7 +2,8 @@
 
 {% block content %}
   <h1>Listar Categorias</h1>
-
+  <button type='submit'><a href='{% url "create_category" %}'>Nova Categoria</a></button>
+</br>
   <ul>
     {% for category in categorys %}
       <li>
@@ -10,13 +11,8 @@
         <button type="submit"><a href='{% url "update_category" category.pk %}'>Editar</a></button>
         <form method="post" action='{% url "delete_category" category.pk %}'>
           {% csrf_token %}
-          <button type="submit">Excluir</button>
+          <button type="submit">Excluir</button>        
         </form>
       </li>
     {% endfor %}
-  </ul>
 {% endblock %}
-
-
-
-

@@ -17,7 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from inventrol.core.views import home, login_view, logout_view
-from inventrol.core.views import CreateCategoryView, UpdateCategoryView, DeleteCategoryView, ListCategoryView
+from inventrol.core.views import (
+    CreateCategoryView, 
+    UpdateCategoryView, 
+    DeleteCategoryView, 
+    ListCategoryView,
+    CreateProductView,
+    UpdateProductView,
+    ListProductView,
+    DeleteProductView,
+
+    )
 
 urlpatterns = [    
     #django admin
@@ -31,5 +41,10 @@ urlpatterns = [
     path('categoria/create/', CreateCategoryView.as_view(), name='create_category'),
     path('categoria/<int:categoria_id>/update/', UpdateCategoryView.as_view(), name='update_category'),
     path('categoria/<int:categoria_id>/delete/', DeleteCategoryView.as_view(), name='delete_category'),
-    
+    #produto
+    path('produto/create/', CreateProductView.as_view(),name='create_product'),
+    path('produto/', ListProductView.as_view(),name='list_product'),
+    path('produto/<int:produto_id>/update/', UpdateProductView.as_view(),name='update_product'),
+    path('produto/<int:product_id>/delete/', DeleteProductView.as_view(), name='delete_product')
+
 ]
