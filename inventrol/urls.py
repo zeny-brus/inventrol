@@ -26,6 +26,9 @@ from inventrol.core.views import (
     update_product,
     ListProductView,
     DeleteProductView,
+    CreateMovement,
+    ListMovement,
+    UpdateMovement,
 
     )
 
@@ -45,6 +48,10 @@ urlpatterns = [
     path('produto/create/', create_product, name='create_product'),
     path('produto/<int:produto_id>/update/', update_product, name='update_product'),
     path('produto/', ListProductView.as_view(),name='list_product'),    
-    path('produto/<int:product_id>/delete/', DeleteProductView.as_view(), name='delete_product')
+    path('produto/<int:product_id>/delete/', DeleteProductView.as_view(), name='delete_product'),
+    #movimento
+    path('movimento/create/', CreateMovement.as_view(), name='create_movement'),
+    path('movimento/history/', ListMovement.as_view(), name='list_movement'),
+    path('movimento/<int:movement_id>/update', UpdateMovement.as_view(), name='update_movement'),
 
 ]

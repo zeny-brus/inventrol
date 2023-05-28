@@ -1,5 +1,5 @@
 from django import forms
-from .models import Product
+from .models import Product, Movement
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -14,7 +14,16 @@ class ProductForm(forms.ModelForm):
         if amout and min_amout and min_amout > amout:
             raise forms.ValidationError("A quantidade minima tem que ser menor ou igual a quantidade")
 
-
+class MovementForm(forms.ModelForm):
+    TYPE_MOVEMENT = [
+        ('ENTRY','Entry'),
+        ('OUTPUT','Output'),
+    ]
+    type_movement = forms.ChoiceField(choices=TYPE_MOVEMENT, widget=forms.RadioSelect)
+    class Meta:
+        model = Movement
+        fields = ("product","type_movement","amout")
+    
 
 
 

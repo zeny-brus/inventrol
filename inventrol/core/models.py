@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -45,4 +46,10 @@ class Movement (models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.type_movement} - {self.product.name}'
+        data_format = self.date.strftime('%H:%M %d/%m/%Y')
+        return f'{self.type_movement} - {self.product.name} - {data_format} '
+    
+    def save(self, *args, **kwargs):
+        if not self.user.id:
+            self.user = kwargs.pop('user',None)
+        super().save(*args, **kwargs)

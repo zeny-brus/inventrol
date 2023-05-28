@@ -4,9 +4,13 @@ from .models import Category,Product,Movement
 
 
 admin.site.register(Product)
-admin.site.register(Movement)
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id','name')
     
 admin.site.register(Category,CategoryAdmin)
+
+class MovementAdmin(admin.ModelAdmin):
+    list_display = ('id','product','type_movement','user','date')
+admin.site.register(Movement)

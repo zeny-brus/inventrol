@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Historicos</h1>
+  <button type='submit'><a href='{% url "create_movement" %}'>Lancamento</a></button>
+</br>
+  <ul>
+    {% for movement in movements %}
+      <li>
+        {{movement.type_movement}} | {{movement.product }}
+        <button type="submit"><a href='{% url "update_movement" movement.pk %}'>Editar</a></button>        
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+
+
+

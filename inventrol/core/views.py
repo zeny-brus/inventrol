@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
-from .models import Category,Product
-from .forms import ProductForm
+from .models import Category, Product, Movement
+from .forms import ProductForm, MovementForm
 
 #aplicacao de login
 @login_required(login_url='login')
@@ -101,6 +102,34 @@ class DeleteProductView(DeleteView):
     template_name = 'produto/lista_produtos.html'
     success_url = reverse_lazy('list_product')
     pk_url_kwarg = 'product_id'
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
+class CreateMovement( LoginRequiredMixin ,CreateView):
+    model = Movement
+    form_class = MovementForm    
+    template_name = 'movimento/lancamento.html'    
+    success_url = reverse_lazy('list_movement')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class ListMovement(ListView):
+    model = Movement
+    template_name = 'movimento/historico.html'
+    context_object_name = 'movements'
+
+class UpdateMovement(LoginRequiredMixin, UpdateView):
+    model = Movement
+    form_class = MovementForm
+    template_name = 'movimento/lancamento.html'
+    success_url = reverse_lazy('list_movement')
+    pk_url_kwarg = 'movement_id'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 
 
