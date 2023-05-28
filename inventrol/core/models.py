@@ -9,7 +9,7 @@ class Category (models.Model):
     
 class Product (models.Model):
     name = models.CharField( verbose_name='product', max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     amout = models.PositiveIntegerField()
