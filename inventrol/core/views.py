@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -7,9 +7,10 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from .models import Category,Product
+from .forms import ProductForm
 
 #aplicacao de login
-@method_decorator(login_required(login_url='login'), name='dispatch')
+@login_required(login_url='login')
 def home(request):
     return render(request,'index.html')
 
@@ -61,26 +62,38 @@ class ListCategoryView(ListView):
     context_object_name = 'categorys'
 
 #aplicacao de produtos
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class CreateProductView(CreateView):
-    model = Product
-    template_name = 'produto/criar_produto.html'
-    fields = ['name','category','description','price','amout', 'min_amout','uni']
-    success_url = reverse_lazy('list_product')
+@login_required(login_url='login')
+def create_product(request):  
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_product')
+    else:
+        form = ProductForm()
+    context = {'form':form}
+    return render(request,'produto/criar_produto.html',context)
+
+@login_required(login_url='login')
+def update_product(request, produto_id):
+    product = get_object_or_404(Product, pk=produto_id)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('list_product')
+    else:
+        form = ProductForm(instance=product)
+    context = {"form":form}
+    return render(request, 'produto/criar_produto.html', context)
+
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ListProductView(ListView):
     model = Product
     template_name = 'produto/lista_produtos.html'
     context_object_name = 'products'
-
-@method_decorator(login_required(login_url='login'), name='dispatch')
-class UpdateProductView(UpdateView):
-    model = Product
-    template_name = 'produto/criar_produto.html'
-    fields = ['name','category','description','price','amout','min_amout','uni']
-    success_url = reverse_lazy('list_product')
-    pk_url_kwarg = 'produto_id'
 
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class DeleteProductView(DeleteView):
