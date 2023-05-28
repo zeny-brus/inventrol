@@ -49,7 +49,13 @@ class Movement (models.Model):
         data_format = self.date.strftime('%H:%M %d/%m/%Y')
         return f'{self.type_movement} - {self.product.name} - {data_format} '
     
+   
     def save(self, *args, **kwargs):
-        if not self.user.id:
-            self.user = kwargs.pop('user',None)
+        if self.type_movement == 'ENTRY':
+            self.product.amout += self.amout
+        elif self.type_movement == 'OUTPUT':
+            self.product.amout -= self.amout
+        self.product.save()
         super().save(*args, **kwargs)
+  
+

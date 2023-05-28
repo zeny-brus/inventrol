@@ -7,7 +7,7 @@
   <ul>
     {% for product in products %}
       <li>
-        {{ product.name }}
+        {{ product.name }} - {{product.amout}}
         <button type="submit"><a href='{% url "update_product" product.pk %}'>Editar</a></button>
         <form method="post" action='{% url "delete_product" product.pk %}'>
           {% csrf_token %}
