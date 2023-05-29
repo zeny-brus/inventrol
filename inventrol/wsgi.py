@@ -8,10 +8,16 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 """
 
 import os
-from dj_static import Cling
+import sys
+#from dj_static import Cling
+
+path = '/home/zamenis/inventrol'
+if path not in sys.path:
+    sys.path.append(path)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'inventrol.settings'
 
 from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'inventrol.settings')
 
-application = Cling(get_wsgi_application())
