@@ -13,7 +13,7 @@ from .forms import ProductForm, MovementForm
 #aplicacao de login
 @login_required(login_url='login')
 def home(request):
-    return render(request,'index.html')
+    return render(request,'base.html')
 
 def login_view(request):
     if request.method == 'POST':
